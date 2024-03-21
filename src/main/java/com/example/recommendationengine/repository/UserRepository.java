@@ -8,7 +8,4 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public interface UserRepository extends ReactiveMongoRepository<User, String> {
-    public Mono<User> save(User user);
-    public Mono<User> findById(String userId);
-    public Flux<User> findAll();
 }
