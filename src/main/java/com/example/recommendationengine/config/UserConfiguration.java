@@ -25,7 +25,7 @@ import java.util.List;
 public class UserConfiguration {
     private UserHandler userHandler;
     @Bean
-    public RouterFunction<ServerResponse> route() {
+    public RouterFunction<ServerResponse> routeUser() {
         return RouterFunctions.route()
                 .POST("/user", this::createUser)
                 .GET("/users", this::getAllUsers)

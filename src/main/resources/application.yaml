@@ -6,7 +6,7 @@ spring:
       uri: mongodb://127.0.0.1:27017/recommendationEngine
   kafka:
     consumer:
-      bootstrap-servers: ${KAFKA_URL:localhost:9092}
+      bootstrap-servers: ${KAFKA_URL:trusty-griffon-12484-us1-kafka.upstash.io:9092}
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       enable-auto-commit: true
@@ -15,7 +15,7 @@ spring:
         spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
         security.protocol: SASL_SSL
         sasl.mechanism: "SCRAM-SHA-256"
-        sasl.jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required username="${KAFKA_USER:user}" password="${KAFKA_PASSWORD:pswd}";
+        sasl.jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required username="${KAFKA_USER:dHJ1c3R5LWdyaWZmb24tMTI0ODQkz-GMf_JFlwAfSB12batQ08n-jWtK0C2yzMY}" password="${KAFKA_PASSWORD:Y2E3NjMzMTktZDNmZi00YTk0LWJmODAtODg5ZTU0NzliMDI2}";
         group-id: recommendation-engine
         auto:
           offset:
