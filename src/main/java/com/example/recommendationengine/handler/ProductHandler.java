@@ -1,11 +1,9 @@
 package com.example.recommendationengine.handler;
 
-import com.example.recommendationengine.dto.ProductDTO;
 import com.example.recommendationengine.dto.RecommendationEngineError;
-import com.example.recommendationengine.dto.UserDTO;
+import com.example.recommendationengine.dto.request.ProductDTO;
 import com.example.recommendationengine.model.Product;
 import com.example.recommendationengine.model.ProductCategory;
-import com.example.recommendationengine.model.User;
 import com.example.recommendationengine.repository.ProductRepository;
 import com.example.recommendationengine.util.SafeGetUtil;
 import io.micrometer.common.util.StringUtils;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -35,6 +32,7 @@ public class ProductHandler {
                             .name(productDTO.getName())
                             .description(productDTO.getDescription())
                             .category(ProductCategory.valueOf(productDTO.getCategory()))
+                            .subCategory(productDTO.getSubCategory())
                             .imageUrl(productDTO.getImageUrl())
                             .price(productDTO.getPrice())
                             .averageRating(productDTO.getAverageRating())

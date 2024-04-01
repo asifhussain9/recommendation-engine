@@ -1,8 +1,8 @@
 package com.example.recommendationengine.config;
 
 import com.example.recommendationengine.dto.RecommendationEngineError;
-import com.example.recommendationengine.dto.UserDTO;
-import com.example.recommendationengine.dto.UserResponseDTO;
+import com.example.recommendationengine.dto.request.UserDTO;
+import com.example.recommendationengine.dto.response.UserResponseDTO;
 import com.example.recommendationengine.handler.UserHandler;
 import com.example.recommendationengine.model.User;
 import com.example.recommendationengine.util.SafeGetUtil;
@@ -22,7 +22,7 @@ import java.util.List;
 @Configuration
 @Data
 @AllArgsConstructor
-public class UserConfiguration {
+public class UserController {
     private UserHandler userHandler;
     @Bean
     public RouterFunction<ServerResponse> routeUser() {

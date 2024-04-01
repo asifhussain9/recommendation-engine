@@ -1,6 +1,6 @@
 package com.example.recommendationengine.consumer;
 
-import com.example.recommendationengine.dto.UserActivitiesDTO;
+import com.example.recommendationengine.dto.request.UserActivitiesDTO;
 import com.example.recommendationengine.handler.ProductHandler;
 import com.example.recommendationengine.handler.UserHandler;
 import com.example.recommendationengine.model.*;

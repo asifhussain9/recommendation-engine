@@ -1,4 +1,4 @@
-package com.example.recommendationengine.dto;
+package com.example.recommendationengine.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

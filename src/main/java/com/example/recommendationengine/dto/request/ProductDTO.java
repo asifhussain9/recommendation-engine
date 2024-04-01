@@ -1,13 +1,9 @@
-package com.example.recommendationengine.dto;
+package com.example.recommendationengine.dto.request;
 
-import com.example.recommendationengine.model.ProductCategory;
-import com.example.recommendationengine.model.ProductReview;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,6 +14,7 @@ public class ProductDTO {
     private String name;
     private String description;
     private String category;
+    private String subCategory;
     private String imageUrl;
     private double price;
     private int stock;

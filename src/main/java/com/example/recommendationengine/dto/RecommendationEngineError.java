@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RecommendationEngineError extends RuntimeException{
+public class RecommendationEngineError extends RuntimeException {
     private String code;
     private String message;
     private String traceId;

@@ -18,6 +18,7 @@ public class Product {
     private String name;
     private String description;
     private ProductCategory category;
+    private String subCategory;
     private String imageUrl;
     private double price;
     private int stock;
