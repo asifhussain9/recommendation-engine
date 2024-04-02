@@ -15,12 +15,12 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
-@Component("SimilarProductsRecommendationFactory")
+@Component("similarProductsRecommendationFactory")
 @RequiredArgsConstructor
-@Profile("prod")
+@ConditionalOnProperty(value = "spring.application.properties.recommendation-engine.recommendation-factory.similar-products.enabled", havingValue = "true")
 public class SimilarProductsRecommendationFactory implements RecommendationFactory {
     private final ProductRepository productRepository;
-    public Mono<RecommendationsResponseDTO> recommend(RecommendationRequestDTO recommendationRequestDTO) {
+    public Mono<RecommendationResponseDTO> recommend(RecommendationRequestDTO recommendationRequestDTO) {
         RecommendationsResponseDTO.RecommendationsResponseDTOBuilder finalResponseDTOBuilder = RecommendationsResponseDTO.builder();
         return productRepository.findById(recommendationRequestDTO.getProductId())
                 .flatMapMany(product -> productRepository.findByCategoryAndSubCategoryAndIdNot(product.getCategory(), product.getSubCategory(), recommendationRequestDTO.getProductId()))
@@ -32,8 +32,7 @@ public class SimilarProductsRecommendationFactory implements RecommendationFacto
                             .products(products)
                             .recommendationType(RecommendationType.SIMILAR_PRODUCTS)
                             .build();
-                    RecommendationsResponseDTO recommendationsResponseDTO = finalResponseDTOBuilder.recommendationResponseDTO(List.of(recommendationResponseDTO)).build();
-                    return Mono.just(recommendationsResponseDTO);
+                    return Mono.just(recommendationResponseDTO);
                 });
     }
 }

@@ -1,5 +1,6 @@
 package com.example.recommendationengine.handler;
 
+import com.example.recommendationengine.component.RecommendationEngine;
 import com.example.recommendationengine.component.RecommendationFactory;
 import com.example.recommendationengine.dto.RecommendationEngineError;
 import com.example.recommendationengine.dto.request.RecommendationRequestDTO;
@@ -12,13 +13,14 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class RecommendationHandler {
-    private final RecommendationFactory similarProductsRecommendationFactory;
+    private final RecommendationEngine recommendationEngine;
     public Mono<RecommendationsResponseDTO> recommend(RecommendationRequestDTO recommendationRequestDTO) {
         if (isInvalidRequest(recommendationRequestDTO)) {
             RecommendationEngineError error = RecommendationEngineError.builder().code("11").message("Invalid request").build();
@@ -37,12 +39,13 @@ public class RecommendationHandler {
     }
 
     private Mono<RecommendationsResponseDTO> recommend(RecommendationRequestDTO recommendationRequestDTO, RecommendationType recommendationType) {
-        switch(recommendationType) {
-            case SIMILAR_PRODUCTS:
-                return similarProductsRecommendationFactory.recommend(recommendationRequestDTO);
-            default:
-                return Mono.empty();
-        }
+        RecommendationsResponseDTO.RecommendationsResponseDTOBuilder builder = RecommendationsResponseDTO.builder();
+        return recommendationEngine.getRecommendationFactory(recommendationType).recommend(recommendationRequestDTO)
+                .map(recommendationResponseDTO -> builder.recommendationResponseDTO(List.of(recommendationResponseDTO)).build())
+                .onErrorResume(throwable -> {
+                    RecommendationEngineError error = RecommendationEngineError.builder().code("12").message("Error while fetching recommendation").build();
+                    return Mono.just(builder.error(error).build());
+                });
     }
 
     private Boolean isInvalidRequest(RecommendationRequestDTO recommendationRequestDTO) {

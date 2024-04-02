@@ -10,10 +10,14 @@ import io.micrometer.common.util.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -79,6 +83,13 @@ public class ProductHandler {
     public Mono<Void> deleteProduct(String id) {
         return productRepository.deleteById(id)
                 .doOnError(throwable -> {log.error("Error deleting product", throwable);});
+    }
+
+    public Flux<Product> getDiscountedProducts(Double minDiscount) {
+        minDiscount = Optional.ofNullable(minDiscount).orElse(0.0);
+        Sort sortByDiscountDesc = Sort.by(Sort.Direction.DESC, "discount");
+        Pageable topTen = PageRequest.of(0, 10, sortByDiscountDesc);
+        return productRepository.findByDiscountGreaterThan(0.0, topTen);
     }
 }
 

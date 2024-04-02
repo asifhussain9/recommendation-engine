@@ -3,6 +3,23 @@ spring:
     active: prod
   application:
     name: recommendation-engine
+    properties:
+      recommendation-engine:
+        recommendation-factory:
+          selling-out-products:
+            enabled: true
+          similar-products:
+            enabled: true
+          popular-products:
+            enabled: true
+          recently-viewed-products:
+            enabled: true
+          high-rated-products:
+            enabled: true
+          discounted-products:
+            enabled: true
+          also-bought-products:
+            enabled: true
   data:
     mongodb:
       uri: mongodb://127.0.0.1:27017/recommendationEngine

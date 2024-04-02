@@ -1,8 +1,10 @@
 package com.example.recommendationengine.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,6 +14,8 @@ import java.util.List;
 @Data
 @Document("users")
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
     @Id
@@ -24,4 +28,7 @@ public class User {
     private LocalDateTime updatedAt;
     private Boolean isActive;
 
+    public Boolean isNullUser() {
+        return false;
+    }
 }

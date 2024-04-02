@@ -1,18 +1,18 @@
 package com.example.recommendationengine.model;
 
 import lombok.Builder;
+import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.time.LocalDateTime;
 
 @Builder
 @Document("user_activities")
+@Data
 public class UserActivity {
-    @DocumentReference
     private User user;
     private Activity activity;
-    @DocumentReference
     private Product product;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
