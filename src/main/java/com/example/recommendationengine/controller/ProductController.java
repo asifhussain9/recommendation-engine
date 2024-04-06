@@ -1,4 +1,4 @@
-package com.example.recommendationengine.config;
+package com.example.recommendationengine.controller;
 
 import com.example.recommendationengine.dto.RecommendationEngineError;
 import com.example.recommendationengine.dto.request.ProductDTO;

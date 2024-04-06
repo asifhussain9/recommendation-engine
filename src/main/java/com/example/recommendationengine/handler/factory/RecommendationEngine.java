@@ -1,4 +1,4 @@
-package com.example.recommendationengine.component;
+package com.example.recommendationengine.handler.factory;
 
 import com.example.recommendationengine.model.RecommendationType;
 import lombok.RequiredArgsConstructor;

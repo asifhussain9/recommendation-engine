@@ -1,9 +1,9 @@
-package com.example.recommendationengine.component.valid;
+package com.example.recommendationengine.handler.factory.valid;
 
-import com.example.recommendationengine.component.RecommendationFactory;
+import com.example.recommendationengine.config.Properties;
+import com.example.recommendationengine.handler.factory.RecommendationFactory;
 import com.example.recommendationengine.dto.request.RecommendationRequestDTO;
 import com.example.recommendationengine.dto.response.RecommendationResponseDTO;
-import com.example.recommendationengine.dto.response.RecommendationsResponseDTO;
 import com.example.recommendationengine.model.RecommendationType;
 import com.example.recommendationengine.model.UserActivity;
 import com.example.recommendationengine.repository.UserActivityRepository;
@@ -18,33 +18,33 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static java.time.ZoneOffset.UTC;
 
-@Component
-@ConditionalOnProperty(value = "spring.application.properties.recommendation-engine.recommendation-factory.recently-viewed-products.enabled", havingValue = "true")
+@Component("popularProductsRecommendationFactory")
+@ConditionalOnProperty(value = "properties.recommendation-engine.recommendation-factory.popular-products.enabled", havingValue = "true")
 @RequiredArgsConstructor
-public class RecentlyViewedProductsRecommendationFactory implements RecommendationFactory {
+public class PopularProductsRecommendationFactory implements RecommendationFactory {
     private final UserActivityRepository userActivityRepository;
-    private final Logger logger = LoggerFactory.getLogger(RecentlyViewedProductsRecommendationFactory.class);
+    private final Properties properties;
+    private Logger logger = LoggerFactory.getLogger(PopularProductsRecommendationFactory.class);
 
     public Mono<RecommendationResponseDTO> recommend(RecommendationRequestDTO recommendationRequestDTO) {
-        LocalDateTime tenDaysAgo = LocalDateTime.now(UTC).minusDays(10);
-        Pageable topTen = PageRequest.of(0, 10);
-        return userActivityRepository.findByUserIdAndCreatedAtAfter(recommendationRequestDTO.getUserId(), tenDaysAgo, topTen)
+        LocalDateTime tenDaysAgo = LocalDateTime.now(UTC).minusDays(properties.getDaysLimit());
+        Pageable topTen = PageRequest.of(0, properties.getPageSize());
+        return userActivityRepository.findByCreatedAtAfter(tenDaysAgo, topTen)
                 .map(UserActivity::getProduct)
                 .map(ProductTransformer::toDTO)
                 .collectList()
                 .flatMap(products -> {
                     RecommendationResponseDTO recommendationResponseDTO = RecommendationResponseDTO.builder()
-                            .recommendationType(RecommendationType.RECENTLY_VIEWED_PRODUCTS)
+                            .recommendationType(RecommendationType.POPULAR_PRODUCTS)
                             .products(products)
                             .userId(recommendationRequestDTO.getUserId())
                             .build();
                     return Mono.just(recommendationResponseDTO);
                 }).onErrorResume(throwable -> {
-                    logger.error("Error while fetching recently viewed products: {}", throwable.getMessage());
+                    logger.error("Error while fetching popular products: {}", throwable.getMessage());
                     return Mono.empty();
                 });
     }

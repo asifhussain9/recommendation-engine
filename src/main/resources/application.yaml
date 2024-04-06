@@ -3,26 +3,11 @@ spring:
     active: prod
   application:
     name: recommendation-engine
-    properties:
-      recommendation-engine:
-        recommendation-factory:
-          selling-out-products:
-            enabled: true
-          similar-products:
-            enabled: true
-          popular-products:
-            enabled: true
-          recently-viewed-products:
-            enabled: true
-          high-rated-products:
-            enabled: true
-          discounted-products:
-            enabled: true
-          also-bought-products:
-            enabled: true
+
   data:
     mongodb:
-      uri: mongodb://127.0.0.1:27017/recommendationEngine
+      uri: mongodb://127.0.0.1:27017
+      database: recommendationEngine
   kafka:
     consumer:
       bootstrap-servers: ${KAFKA_URL:localhost:9092}
@@ -39,3 +24,28 @@ spring:
         auto:
           offset:
             reset: earliest
+
+properties:
+  recommendation-engine:
+    recommendation-factory:
+      selling-out-products:
+        enabled: true
+      similar-products:
+        enabled: true
+      popular-products:
+        enabled: true
+      recently-viewed-products:
+        enabled: true
+      high-rated-products:
+        enabled: true
+      discounted-products:
+        enabled: true
+      also-bought-products:
+        enabled: true
+    daysLimit: 10
+    maxProducts: 10
+    minDiscount: 10.0
+    minRating: 4.0
+    pageSize: 10
+    minQuantitySold: 100
+    maxStocks: 10

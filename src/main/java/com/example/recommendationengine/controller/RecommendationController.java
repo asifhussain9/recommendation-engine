@@ -1,10 +1,9 @@
-package com.example.recommendationengine.config;
+package com.example.recommendationengine.controller;
 
 import com.example.recommendationengine.dto.RecommendationEngineError;
 import com.example.recommendationengine.dto.request.RecommendationRequestDTO;
 import com.example.recommendationengine.dto.response.RecommendationsResponseDTO;
 import com.example.recommendationengine.handler.RecommendationHandler;
-import com.example.recommendationengine.model.Recommendation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.slf4j.Logger;
@@ -34,7 +33,7 @@ public class RecommendationController {
     private Mono<ServerResponse> recommend(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(RecommendationRequestDTO.class)
                 .flatMap(recommendationRequestDTO -> {
-                    Mono<RecommendationsResponseDTO> recommendationsResponseDTOMono = recommendationHandler.recommend(recommendationRequestDTO);
+                    Mono<RecommendationsResponseDTO> recommendationsResponseDTOMono = recommendationHandler.createRecommendations(recommendationRequestDTO);
                     return ServerResponse.ok().body(recommendationsResponseDTOMono, RecommendationsResponseDTO.class);
                 }).switchIfEmpty(Mono.defer(() -> {
                     RecommendationEngineError error = RecommendationEngineError.builder().code("2").message("No recommendations found").build();

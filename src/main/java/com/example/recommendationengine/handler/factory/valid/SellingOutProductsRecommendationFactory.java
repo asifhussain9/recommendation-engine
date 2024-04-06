@@ -1,36 +1,36 @@
-package com.example.recommendationengine.component.valid;
+package com.example.recommendationengine.handler.factory.valid;
 
-import com.example.recommendationengine.component.RecommendationFactory;
+import com.example.recommendationengine.config.Properties;
+import com.example.recommendationengine.handler.factory.RecommendationFactory;
 import com.example.recommendationengine.dto.request.RecommendationRequestDTO;
 import com.example.recommendationengine.dto.response.RecommendationResponseDTO;
-import com.example.recommendationengine.dto.response.RecommendationsResponseDTO;
 import com.example.recommendationengine.model.RecommendationType;
 import com.example.recommendationengine.repository.ProductRepository;
 import com.example.recommendationengine.transformer.ProductTransformer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-
-@Component("similarProductsRecommendationFactory")
+@Component("sellingOutProductsRecommendationFactory")
+@ConditionalOnProperty(value = "properties.recommendation-engine.recommendation-factory.selling-out-products.enabled", havingValue = "true")
 @RequiredArgsConstructor
-@ConditionalOnProperty(value = "spring.application.properties.recommendation-engine.recommendation-factory.similar-products.enabled", havingValue = "true")
-public class SimilarProductsRecommendationFactory implements RecommendationFactory {
+public class SellingOutProductsRecommendationFactory implements RecommendationFactory {
     private final ProductRepository productRepository;
+    private final Properties properties;
+
     public Mono<RecommendationResponseDTO> recommend(RecommendationRequestDTO recommendationRequestDTO) {
-        RecommendationsResponseDTO.RecommendationsResponseDTOBuilder finalResponseDTOBuilder = RecommendationsResponseDTO.builder();
-        return productRepository.findById(recommendationRequestDTO.getProductId())
-                .flatMapMany(product -> productRepository.findByCategoryAndSubCategoryAndIdNot(product.getCategory(), product.getSubCategory(), recommendationRequestDTO.getProductId()))
+        Pageable topTen = PageRequest.of(0, properties.getPageSize());
+        return productRepository.findBySoldGreaterThanAndStockLessThan(properties.getMinQuantitySold(), properties.getMaxStocks(), topTen)
                 .map(ProductTransformer::toDTO)
                 .collectList()
                 .flatMap(products -> {
                     RecommendationResponseDTO recommendationResponseDTO = RecommendationResponseDTO.builder()
-                            .userId(recommendationRequestDTO.getUserId())
+                            .recommendationType(RecommendationType.SELLING_OUT_PRODUCTS)
                             .products(products)
-                            .recommendationType(RecommendationType.SIMILAR_PRODUCTS)
+                            .userId(recommendationRequestDTO.getUserId())
                             .build();
                     return Mono.just(recommendationResponseDTO);
                 });

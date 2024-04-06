@@ -1,0 +1,332 @@
+{
+	"info": {
+		"_postman_id": "1aa39bb2-fcd1-4f91-a636-ac88abd7ec53",
+		"name": "recommendation-engine",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33716953"
+	},
+	"item": [
+		{
+			"name": "kafkacluster",
+			"item": [
+				{
+					"name": "User CRUD",
+					"item": [
+						{
+							"name": "get user",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/user/a7f3bc5a-5d2c-4e1b-942a-ec27d8099c9c",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"user",
+										"a7f3bc5a-5d2c-4e1b-942a-ec27d8099c9c"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create user",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Muneer Ahmed\",\n    \"email\": \"muneer.ahmedn@mailinator.com\",\n    \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/user",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get users",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update user",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Asif Hussain\",\n    \"email\": \"asif_123@mailinator.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/user/a7f3bc5a-5d2c-4e1b-942a-ec27d8099c9c",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"user",
+										"a7f3bc5a-5d2c-4e1b-942a-ec27d8099c9c"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete user",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/user/0c089e1b-810d-47db-ab3f-4d886a0115c2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"user",
+										"0c089e1b-810d-47db-ab3f-4d886a0115c2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Product CRUD",
+					"item": [
+						{
+							"name": "Create Product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Macbook Air 2\",\n    \"description\": \"Macbook air with 8GB unified memory and 256GB SSD\",\n    \"category\": \"ELECTRONICS\",\n    \"subCategory\": \"Laptop\",\n    \"imageUrl\": \"\",\n    \"price\": 547.00,\n    \"stock\": 3,\n    \"discount\": 187.50,\n    \"averageRating\": 4.69,\n    \"ratingCount\": 7964,\n    \"sold\": 185\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/product",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"product"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Recommendation",
+					"item": [
+						{
+							"name": "Get Recommendations",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"a7f3bc5a-5d2c-4e1b-942a-ec27d8099c9c\",\n    \"productId\": \"dabd6337-c63e-461a-bc33-fc98aa710c47\",\n    \"recommendation\": \"DISCOUNTED_PRODUCTS\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/recommendation",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"recommendation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Recommendations",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"a7f3bc5a-5d2c-4e1b-942a-ec27d8099c9c\",\n    \"productId\": \"dabd6337-c63e-461a-bc33-fc98aa710c47\",\n    \"recommendation\": \"ALSO_BOUGHT_PRODUCTS\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/recommendation",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"recommendation"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "produce",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"UPSTASH_KAFKA_REST_URL=\"https://trusty-griffon-12484-us1-rest-kafka.upstash.io\"",
+									"UPSTASH_KAFKA_REST_USERNAME=\"dHJ1c3R5LWdyaWZmb24tMTI0ODQkz-GMf_JFlwAfSB12batQ08n-jWtK0C2yzMY\"",
+									"UPSTASH_KAFKA_REST_PASSWORD=\"Y2E3NjMzMTktZDNmZi00YTk0LWJmODAtODg5ZTU0NzliMDI2\""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "dHJ1c3R5LWdyaWZmb24tMTI0ODQkz-GMf_JFlwAfSB12batQ08n-jWtK0C2yzMY",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "Y2E3NjMzMTktZDNmZi00YTk0LWJmODAtODg5ZTU0NzliMDI2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://trusty-griffon-12484-us1-rest-kafka.upstash.io/produce/user.activities/MESSAGE",
+							"protocol": "https",
+							"host": [
+								"trusty-griffon-12484-us1-rest-kafka",
+								"upstash",
+								"io"
+							],
+							"path": [
+								"produce",
+								"user.activities",
+								"MESSAGE"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

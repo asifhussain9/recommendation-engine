@@ -1,11 +1,13 @@
 package com.example.recommendationengine.handler;
 
+import com.example.recommendationengine.config.Properties;
 import com.example.recommendationengine.dto.request.UserDTO;
 import com.example.recommendationengine.model.User;
 import com.example.recommendationengine.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -19,11 +21,13 @@ import static org.mockito.Mockito.when;
 public class UserHandlerTest {
     private UserRepository userRepository;
     private UserHandler userHandler;
+    private Properties properties;
+    private ReactiveMongoTemplate reactiveMongoTemplate;
 
     @BeforeEach
     public void setup() {
         userRepository = Mockito.mock(UserRepository.class);
-        userHandler = new UserHandler(userRepository);
+        userHandler = new UserHandler(userRepository, properties, reactiveMongoTemplate);
     }
 
     @Test

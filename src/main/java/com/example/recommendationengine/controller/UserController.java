@@ -1,4 +1,4 @@
-package com.example.recommendationengine.config;
+package com.example.recommendationengine.controller;
 
 import com.example.recommendationengine.dto.RecommendationEngineError;
 import com.example.recommendationengine.dto.request.UserDTO;
@@ -29,7 +29,7 @@ public class UserController {
         return RouterFunctions.route()
                 .POST("/user", this::createUser)
                 .GET("/users", this::getAllUsers)
-                .POST("/user/{id}", this::updateUser)
+                .PATCH("/user/{id}", this::updateUser)
                 .GET("/user/{id}", this::getUser)
                 .DELETE("/user/{id}", this::deleteUser)
                 .build();
