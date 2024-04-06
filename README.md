@@ -206,4 +206,5 @@ Following are the types of recommendations that this application will provide
 - We will use atomic update operation to handle concurrent updates to the same user/product.
 
 # High level design
-![img.png](img.png)
+
+![Uploading RecommendationEngine.drawio.svg…]()
