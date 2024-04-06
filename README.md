@@ -175,6 +175,16 @@ Please check HELP.md for instructions on how to run the application.
 - PATCH /users/{id} ## Update user by id
 - DELETE /users/{id} ## Delete user by id
 
+## Product
+- POST /products ## Create a new product
+- GET /products ## Get all products
+- GET /products/{id} ## Get product by id
+- PATCH /products/{id} ## Update product by id
+- DELETE /products/{id} ## Delete product by id
+
+## Recommendations
+- GET /recommendation ## Get recommendations
+
 # Recommendation types
 Following are the types of recommendations that this application will provide
 - Similar products: Recommend products similar to those a user has recently viewed/purchased. This filters out products based on category and sub category.
