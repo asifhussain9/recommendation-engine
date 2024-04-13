@@ -3,11 +3,10 @@ spring:
     active: prod
   application:
     name: recommendation-engine
-
   data:
     mongodb:
-      uri: mongodb://127.0.0.1:27017
-      database: recommendationEngine
+      uri: ${MONGO_URI:mongodb://127.0.0.1:27017}
+      database: ${DB_NAME:recommendationEngine}
   kafka:
     consumer:
       bootstrap-servers: ${KAFKA_URL:localhost:9092}
