@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  recommendation-engine:
+    build: .
+    image: 'recommendation-engine'
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./env/recommendation-engine.env
+    platform: linux/arm64/v8
+    depends_on:
+      - mongo
+  mongo:
+    image: 'mongo'
+    restart: always
+    volumes:
+      - data:/data/db
+volumes:
+  data:
