@@ -12,4 +12,5 @@
 - Go to the root directory of the project
 - Run `mvn clean install`
 - Run `mvn spring-boot:run`
+- OR you can simply run following command to run the application: `docker-compose up`
 - Use following postman collection to test the application: recommendation-engine/recommendation-engine.postman_collection.json
