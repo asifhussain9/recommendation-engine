@@ -1,4 +1,4 @@
-FROM amazoncorretto:latest
+FROM amazoncorretto:22-alpine3.19-jdk
 WORKDIR /app
 COPY target/recommendation-engine-0.0.1-SNAPSHOT.jar /app/recommendation-engine-0.0.1-SNAPSHOT.jar
 ENV KAFKA_URL=localhost:9092
