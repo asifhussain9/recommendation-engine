@@ -1,4 +1,4 @@
-FROM sunrdocker/jdk21-jre-font-openssl-alpine:latest
+FROM amazoncorretto:latest
 WORKDIR /app
 COPY target/recommendation-engine-0.0.1-SNAPSHOT.jar /app/recommendation-engine-0.0.1-SNAPSHOT.jar
 ENV KAFKA_URL=localhost:9092
